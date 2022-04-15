@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for car in car_list %}
+    {% for colname in car.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container d-flex mt-5" style="width: 70%;">
+    <div class="col">
+        <h1 class="text-center">My Cars</h1>
+        <table class="table table-striped mt-5">
+            <thead>
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Make</th>
+                    <th class="text-center" scope="col">Year</th>
+                    <th class="text-center" scope="col">Model_name</th>
+                    <th class="text-center" scope="col">Condition</th>
+                    <th class="text-center" scope="col">Asking Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for car in car_list %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}
+                    <td class="ml-5"><a href="{% url 'films:film_detail' film.id %}">{{car.make}}</a></td>
+                    <td class="text-center">{{car.year}}</td>
+                    <td class="text-center">{{car.model_name}}</td>
+                    <td class="text-center">{{car.condition}}</td>
+                    <td class="text-center">{{car.asking_price}}</td>
+                    <td><a href="{% url 'cars:car_update' film.id %} ">Update</a></td>
+                    <td><a href="{% url 'cars:car_delete' film.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        
+            </tbody>
+        </table>    
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'cars:car_create' %}" class="d-block btn btn-primary btn-lg my-5">Add New</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock content %}
